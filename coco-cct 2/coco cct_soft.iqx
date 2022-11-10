@@ -1,0 +1,1790 @@
+﻿<usermanual>
+___________________________________________________________________________________________________________________	
+
+							Columbia Card Task (CCT) -- "Hot w/ Delayed Feedback" Version ：：：：：）））
+___________________________________________________________________________________________________________________
+
+Script Author: David Nitz (dave@millisecond.com) for Millisecond Software, LLC.
+last updated:  02-18-2022 by K. Borchert (katjab@millisecond.com) for Millisecond Software, LLC
+
+Script Copyright © 02-18-2022 Millisecond Software
+
+___________________________________________________________________________________________________________________
+BACKGROUND INFO 	
+___________________________________________________________________________________________________________________
+This script implements the 'Columbia Card Task' (CCT) as described in:
+
+	Figner, B., Mackinlay, R.J., Wilkening, F., & Weber, E.U. (2009). Affective and deliberative
+	processes in risky choice: Age differences in risk taking in the Columbia Card Task. 
+	Journal of Experimental Psychology: Learning, Memory, and Cognition, 35, 709–730.
+
+___________________________________________________________________________________________________________________
+TASK DESCRIPTION	
+___________________________________________________________________________________________________________________
+Participants are presented with 32 cards, all face down. Some of these cards are 'gain cards'
+(=make money when turned over), some of them are loss cards (= lose money when turned over).
+Participant click on the cards they want to turn over based on the following round info:
+- number of hidden loss cards
+- amount of money they can make from each gain card
+- amount of money that they will lose if a loss card is encountered.
+(Note: once a loss card is turned over, the round is over)
+
+In the 'hot - delayed feedback' version of the Columbia Card Task, participants get to see the result
+of their choices ONLY after they indicated all the cards they want to turn over.
+
+Note that the experimental trials rely on rigged feedback, i.e. the hidden loss card(s) will 
+always be the last possible card(s) that may be turned over by the participant. For example, 
+in a trial with 2 loss cards, only the 31st card turned over by the subject will be a loss card
+independent of which cards the subject actually decides to pick.
+
+___________________________________________________________________________________________________________________	
+DURATION 
+___________________________________________________________________________________________________________________	
+the default set-up of the script takes appr. XXX minutes to complete
+(if no task duration is provided, please contact Millisecond Software
+(katjab@millisecond.com)
+
+___________________________________________________________________________________________________________________	
+DATA FILE INFORMATION 
+___________________________________________________________________________________________________________________
+The default data stored in the data files are:
+
+(1) Raw data file: 'cct_cold_raw*.iqdat' (a separate file for each participant)
+
+build:								The specific Inquisit version used (the 'build') that was run
+computer.platform:					the platform the script was run on (win/mac/ios/android)
+date, time: 						date and time script was run 
+subject, group: 					with the current subject/groupnumber
+session:							with the current session id
+
+blockcode, blocknum:				the name and number of the current block (built-in Inquisit variable)
+trialcode, trialnum: 				the name and number of the currently recorded trial (built-in Inquisit variable)
+										Note: trialnum is a built-in Inquisit variable; it counts all trials run; even those
+										that do not store data to the data file. 
+									
+response:							the participant's response in the recorded trial
+									trial.pickcard: the selected card									
+										
+latency: 							the response latency (in ms), measured from onset of trial
+
+									
+gameround:							The current round number
+trialtype:							The type of trial, where '1' designates an experimental trial and '0' indicates a filler trial
+losscards:							The number of loss cards in a given round
+gainamount:							The gain amount per gain card in a given round
+lossamount:							The loss amount in a given round
+ncards:								The number of cards turned over by the subject in a given round
+nsubcards: 							The number of cards turned over by the subjext in a given subround(defined by clicking the pickagain button)
+nsafecards:							The number of cards safe to turn over in a given round
+score:								Points won / lost in a given round
+totalscore:							Points won / lost across the whole task
+
+
+
+(2) Summary data file: 'cct_cold_summary*.iqdat' (a separate file for each participant)
+
+inquisit.version: 			the version/build of Inquisit
+computer.platform:			the platform the script was run on (win/mac/ios/android)
+startdate:					date script was run
+starttime:					time script was started
+subjectid:					assigned subject id number
+groupid:					assigned group id number
+sessionid:					assigned session id number
+elapsedtime:				time it took to run script (in ms); measured from onset to offset of script
+completed:					0 = script was not completed (prematurely aborted); 
+							1 = script was completed (all conditions run)
+
+totalscore:					Points won / lost across the whole task
+
+
+
+___________________________________________________________________________________________________________________	
+EXPERIMENTAL SET-UP 
+___________________________________________________________________________________________________________________	
+
+The CCT relies on a full factorial within-subject design. Three game parameters / factors 
+are varied between trials: 	
+
+(a) Number of hidden loss cards (1, 2, or 3 loss cards)
+(b) Gain amount per gain card (10, 20, or 30 points)
+(c) Loss amount (250, 500, or 750 points)
+
+There are a total of 3 x 3 x 3 = 27 unique combinations. These are encoded in ist elements in section EDITABLE LISTS.
+
+Each of the 3 x 3 x 3 = 27 combinations of factor levels is presented twice, resulting in 54 
+experimental trials. The presentation of experimental trials is divided into two blocks of 27 
+trials, i.e. all 27 unique trials are run once in random order and then a second time in a 
+different random order. 
+	
+Note that the experimental trials rely on rigged feedback, i.e. the hidden loss card(s) will 
+always be the last possible card(s) that may be turned over by the participant. For example, 
+in a trial with 2 loss cards, only the 31st card turned over by the subject will be a loss card
+independent of which cards the subject actually decides to pick.
+
+To maintain the impression that respondents are playing a real game of chance, 9 additional 
+trials are randomly interspersed among the 54 rigged experimental trials. All of this is 
+handled by list 'trialtype' (see section EDITABLE LISTS), where the value '0' designates a filler trial 
+(9 times) and the value '1' designates an experimental trial (54 times). Consequently, there will be a total of
+63 game rounds (trials) to play. Note that filler trials should be excluded from data analysis.
+
+___________________________________________________________________________________________________________________	
+STIMULI
+___________________________________________________________________________________________________________________
+provided by Millisecond Software
+
+___________________________________________________________________________________________________________________	
+INSTRUCTIONS 
+___________________________________________________________________________________________________________________
+see section Editable Instructions
+
+___________________________________________________________________________________________________________________	
+EDITABLE CODE 
+___________________________________________________________________________________________________________________	
+check below for (relatively) easily editable parameters, stimuli, instructions etc. 
+Keep in mind that you can use this script as a template and therefore always "mess" with the entire code 
+to further customize your experiment.
+
+check section Editable Lists for:
+(a) Number of hidden loss cards (1, 2, or 3 loss cards)
+(b) Gain amount per gain card (10, 20, or 30 points)
+(c) Loss amount (250, 500, or 750 points)
+
+</usermanual>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	EDITABLE PARAMETERS
+**************************************************************************************************************
+**************************************************************************************************************
+
+<parameters>
+/debugmode = 0				//0 (false) = script runs in testmode; 
+							//1 (true) = script runs in debugmode (debuginfo will be displayed)
+</parameters>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	EDITABLE INSTRUCTIONS: change instructions here
+**************************************************************************************************************
+**************************************************************************************************************
+<instruct CCT>
+/ fontstyle = ("Times New Roman", 3.5%, false, false, false, false, 5, 0)
+/ navigationbuttonfontstyle = ("Times New Roman", 3.5%, false, false, false, false, 5, 0)
+/ screencolor = black
+/ txcolor = ghostwhite
+</instruct>
+
+
+<page instructions01>
+<h1>Welcome to the Columbia Card Task!</h1><br>
+You are about to play a game for points. At the beginning of each round you will
+see a deck of 32 cards with all cards shown face down. The deck contains a certain number
+of <b><u>gain</u></b> cards (showing a smiling face) and a certain number of <b><u>loss</u></b> cards (displaying a frowning
+face).<br><br>
+The rules of the game are simple: You can select any number of cards.<br> 
+- Each gain cards adds a certain amount of points to your score.<br>
+- One selected loss card, however, results in loss of a specified large loss amount.<br><br>
+You can stop turning over cards at any point and claim the obtained payoff.<br>
+
+<br>In each round you will see the following information displayed at the top of the screen:<br><br>
+The number of hidden loss cards in the deck, the amount of points you can win per gain card 
+<u>and</u> the amount you would lose upon encountering a loss card.<br><br>
+</page>
+
+<page instructions02>
+<h1>In this specific version:</h1><br>
+<i>Pay attention: You will NOT know whether the cards you select are gain or loss cards right away.
+Their status will be revealed only once you decide you are done selecting any new cards!</i><br>
+<b><u>You can pick again for more cards after revealing the results of the cards you get the first time.</u></b><br>
+<i>Still, you will NOT know whether the cards you select are gain or loss cards right away.</i><br><br>
+You can turn over any card by <%expressions.buttoninstruct4%> it.<br>
+To stop turning over cards simply <%expressions.buttoninstruct2%> on the big button at the bottom of the screen.<br>
+<center><u>Remember:</u><br>
+&bull; You may choose as many cards as you want in each round.<br>
+&bull; <b><u>Be aware of the attention checking round</u></b><br> 
+<b><u>(pay attention to the number of loss cards in each round)</u></b><br>
+&bull; Your goal is to make as many points as possible.</center><br>
+There will be a total of 9 rounds to play.<br>
+Good luck!
+</page>
+
+<page end>
+<br><br><br><center>You have concluded the Columbia Card Task.<br><br>
+Your final score for this task is <%values.totalscore%> points.<br><br><br><br>
+<big><big><big><big><b><center>Your completion code is 1375.</b></big><big><big><big></center>
+<br><br><br><center>Thank you!<br><br>
+</page>
+
+<page code>
+<br><br><br><br><br><br>
+<big><big><center><b>Just another reminder, <br><br>
+<big><big><center><b>your completion code is 1375.</b></big><big></center>
+<br><br><center>Thank you!<br><br>
+</page>
+**************************************************************************************************************
+**************************************************************************************************************
+	EDITABLE LISTS: change editable lists here
+**************************************************************************************************************
+**************************************************************************************************************
+Number of hidden loss cards (1, 2, or 3 loss cards) for 27 experimental trials- selected randomly without replacement
+<list losscards>
+/ items = (
+	1,1,1,1,1,1,1,1,1,
+	2,2,2,2,2,2,2,2,2,
+	3,3,3,3,3,3,3,3,3)
+</list>
+
+Gain amount per gain card (10, 20, or 30 points)
+- selection is tied to the currently selected losscard
+<list gainamount>
+/ items = (
+	10,20,30,10,20,30,10,20,30,
+	10,20,30,10,20,30,10,20,30,
+	10,20,30,10,20,30,10,20,30)
+/ selectionmode = list.losscards.currentindex
+</list>
+
+
+Loss amount (250, 500, or 750 points)
+- selection is tied to the currently selected losscard
+<list lossamount>
+/ items = (
+	250,250,250,500,500,500,750,750,750,
+	250,250,250,500,500,500,750,750,750,
+	250,250,250,500,500,500,750,750,750)
+/ selectionmode = list.losscards.currentindex
+/ selectionrate = trial
+</list>
+
+
+0 = filler trial (should be excluded from data analyes)
+1 = experimental trial
+selection is random without replacement for 63 trials total (54 experimental trials and 9 filler trials)
+<list trialtype>
+/ items = (
+
+	1,1,1,1,1,1,1,1,1, 
+	1,1,1,1,1,1,1,1,1, 
+	1,1,1,1,1,1,1,1,1, 
+	1,1,1,1,1,1,1,1,1, 
+	1,1,1,1,1,1,1,1,1, 
+	1,1,1,1,1,1,1,1,1)
+/ resetinterval = 0
+</list>
+// 	0,0,0,0,0,0,0,0,0, 
+**************************************************************************************************************
+**************************************************************************************************************
+	The 9 filler trials are programmed so that the participant will encounter a loss card with high 
+	probability. The preprogrammed loss card should range from the 2nd to the 25th card turned 
+	over by the participant, i.e. there will be between 1 and 24 'safe' cards in a filler trial. This is 
+	handled by list 'losscardfiller'.
+**************************************************************************************************************
+**************************************************************************************************************
+<list losscardfiller>
+/ items = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24)
+/ resetinterval = 0
+</list>
+**************************************************************************************************************
+**************************************************************************************************************
+	Default Screen Settings
+**************************************************************************************************************
+**************************************************************************************************************
+	The program assumes a standard 4:3 screen ratio (e.g. 800x600 pixels, 1024x768 pixels).
+	To enforce this on systems with non-standard (e.g. widescreen) resolutions, add something 
+	like '/ windowsize = (800px, 600px)' to the 'defaults' element. Alternatively, make use of
+	the '/canvassize' and '/canvasaspectratio' attributes.
+**************************************************************************************************************
+**************************************************************************************************************
+<defaults>
+/ canvassize = (100%, 100%)
+/ canvasaspectratio = (4,3)
+/ fontstyle = ("Arial", 2.5%, true, false, false, false, 5, 0)
+/ txcolor = white
+/ txbgcolor = black
+/ halign = left
+/ valign = top
+/ inputdevice = mouse
+/ minimumversion = "6.5.2.0"
+/ screencolor = black
+</defaults>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	Custom Data Output
+**************************************************************************************************************
+**************************************************************************************************************
+********************
+raw data
+********************
+
+<data CCT>
+/ columns = (build, computer.platform, date, time, subject, group, session, 
+blockcode, blocknum, trialcode, trialnum, 
+response,latency, 
+values.gameround, values.trialtype, values.losscards, values.gainamount, values.lossamount,
+values.ncards, values.nsubcards, values.nsafecards, values.score, values.totalscore)
+</data>
+
+
+********************
+summary data
+********************
+
+<summarydata CCT>
+/ columns = (inquisit.version, computer.platform, script.startdate, script.starttime, script.subjectid, script.groupid, script.sessionid, 
+script.elapsedtime, script.completed,
+ values.totalscore,values.lstotalcards)
+</summarydata>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	Values: automatically updated
+**************************************************************************************************************
+**************************************************************************************************************
+	The following 'values' entries are updated at runtime / used for data recording and should 
+	*not* be changed. Entries of interest are explained below:
+
+	completed:			0 = script was not completed; 1 = script was completed (all conditions run)
+
+	gameround:			The current round number
+	trialtype:			The type of trial, where '1' designates an experimental trial and '0' indicates
+						a filler trial
+	losscards:			The number of loss cards in a given round
+	gainamount:			The gain amount per gain card in a given round
+	lossamount:			The loss amount in a given round
+	ncards:				The number of cards turned over by the subject in a given round
+	nsafecards:			The number of cards safe to turn over in a given round
+	score:				Points won / lost in a given round
+	totalscore:			Points won / lost across the whole task
+
+	Values 'CR1C1' to 'CR4C8' are used to switch between the three card types (covered, gain card
+	and loss card), where '1' indicates a card lying face down, '2' indicates a gain card and 
+	'3' indicates a loss card.
+/// setlosscards = 0
+<values>
+
+/ completed = 0
+/ gameround = 0
+/ trialtype = 0
+/ losscards = 0
+/ gainamount = 0
+/ lossamount = 0
+/ ncards = 0
+/ ncards_cumu = 0
+/ nsubcards = 0
+/ lscard = ""
+/ lstotalcards = ""
+/ nsafecards = 0
+/ score = 0
+/ totalscore = 0
+/ cardtype = 0
+/ openlosscards = 0
+/ remaininglosscards = 0
+/ responsestorage = ""
+/ stopblock = 0
+/ button = 1
+/ button2 = 1
+/ CR1C1 = 1
+/ CR1C2 = 1
+/ CR1C3 = 1
+/ CR1C4 = 1
+/ CR1C5 = 1
+/ CR1C6 = 1
+/ CR1C7 = 1
+/ CR1C8 = 1
+/ CR2C1 = 1
+/ CR2C2 = 1
+/ CR2C3 = 1
+/ CR2C4 = 1
+/ CR2C5 = 1
+/ CR2C6 = 1
+/ CR2C7 = 1
+/ CR2C8 = 1
+/ CR3C1 = 1
+/ CR3C2 = 1
+/ CR3C3 = 1
+/ CR3C4 = 1
+/ CR3C5 = 1
+/ CR3C6 = 1
+/ CR3C7 = 1
+/ CR3C8 = 1
+/ CR4C1 = 1
+/ CR4C2 = 1
+/ CR4C3 = 1
+/ CR4C4 = 1
+/ CR4C5 = 1
+/ CR4C6 = 1
+/ CR4C7 = 1
+/ CR4C8 = 1
+</values>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	EXPRESSIONS
+**************************************************************************************************************
+**************************************************************************************************************
+
+************************************
+general instruction expressions
+************************************
+/buttoninstruct: adjusts the instruction text depending on device used to run script
+
+<expressions>
+/buttoninstruct1 = if (computer.touch && !computer.haskeyboard) {"Touch";} else {"Click on";}
+/buttoninstruct2 = if (computer.touch && !computer.haskeyboard) {"touch";} else {"click on";}
+/buttoninstruct3 = if (computer.touch && !computer.haskeyboard) {"Touching";} else {"Clicking on";}
+/buttoninstruct4 = if (computer.touch && !computer.haskeyboard) {"touching";} else {"clicking on";}
+</expressions>
+
+<expressions>
+/button2instruct1 = if (computer.touch && !computer.haskeyboard) {"Touch";} else {"Click on";}
+/button2instruct2 = if (computer.touch && !computer.haskeyboard) {"touch";} else {"click on";}
+/butto2ninstruct3 = if (computer.touch && !computer.haskeyboard) {"Touching";} else {"Clicking on";}
+/button2instruct4 = if (computer.touch && !computer.haskeyboard) {"touching";} else {"clicking on";}
+</expressions>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	!!! YOU PROBABLY DO NOT WANT TO CHANGE ANYTHING BELOW THIS SECTION !!!
+**************************************************************************************************************
+**************************************************************************************************************
+	Trial Definitions
+**************************************************************************************************************
+**************************************************************************************************************
+	Trial 'getcondition' is a dummy trial that is run once at the start of each round.
+	It performs the following tasks:
+	(1) 	Determine whether a trial (round) is an experimental trial or a filler trial. There are
+			27 x 2 = 54 experimental trials and 9 filler trials in total. The type of trial is encoded in 
+			list 'trialtype' and logged to the datafile in 'values.trialtype'.
+	(2)		Determine the settings for 'number of loss cards', 'gain amount' and 'loss amount' for
+			the following trial (round).
+**************************************************************************************************************
+**************************************************************************************************************
+values.openlosscards=0
+<trial getcondition>
+/ ontrialbegin = [
+	//clears the list for the new round of picked cards
+	list.pickcardresponses.clearitems();
+	list.pickcardresponses.reset();
+	//selects whether the trial is a test trial or a filler trial
+	values.trialtype=list.trialtype.nextvalue; 
+	
+	values.score=0; 
+	values.gameround+=1; 
+	values.responsestorage=""; 
+	values.lscard="";
+	values.ncards=0;
+	values.ncards_cumu=0;
+	values.nsubcards=0;
+	list.cardnumber.reset();
+	
+	if (values.trialtype==1){
+		//select the loss/gain card values for test trials
+		values.losscards=list.losscards.nextvalue;
+		values.gainamount=list.gainamount.nextvalue;
+		values.lossamount=list.lossamount.nextvalue;
+		values.nsafecards=32-values.losscards;
+	} else {
+		//select the loss/gain card values for filler trials	
+		values.losscards=noreplace(1,2,3);
+		values.gainamount=noreplace(10,20,30);
+		values.lossamount=noreplace(250,500,750);
+		
+		//values.nsafecards of filler trials does NOT reflect the actual number of 'safe' cards
+		//see list.losscardfiller for more info
+		values.nsafecards=list.losscardfiller.nextvalue;
+	};
+]	
+/ stimulusframes = [1=BlankScreen, getready]
+/ ontrialend = [
+	//all cards should show the covercard at the beginning of the trial
+	values.CR1C1=1; 
+	values.CR1C2=1; 
+	values.CR1C3=1; 
+	values.CR1C4=1; 
+	values.CR1C5=1; 
+	values.CR1C6=1; 
+	values.CR1C7=1; 
+	values.CR1C8=1;
+	values.CR2C1=1; 
+	values.CR2C2=1; 
+	values.CR2C3=1; 
+	values.CR2C4=1; 
+	values.CR2C5=1; 
+	values.CR2C6=1; 
+	values.CR2C7=1; 
+	values.CR2C8=1;
+	values.CR3C1=1; 
+	values.CR3C2=1; 
+	values.CR3C3=1; 
+	values.CR3C4=1; 
+	values.CR3C5=1; 
+	values.CR3C6=1; 
+	values.CR3C7=1; 
+	values.CR3C8=1;
+	values.CR4C1=1; 
+	values.CR4C2=1; 
+	values.CR4C3=1; 
+	values.CR4C4=1; 
+	values.CR4C5=1; 
+	values.CR4C6=1; 
+	values.CR4C7=1; 
+	values.CR4C8=1;
+]
+/ validresponse = (noresponse)
+/ trialduration = 2000
+/ recorddata = false
+/ branch = [return trial.pickcard;]
+</trial>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	Trial 'pickcard' is the task's main trial in which participants select the cards to turn over later.
+**************************************************************************************************************
+**************************************************************************************************************
+
+<trial pickcard>
+/ ontrialbegin = [
+	//check if some card has already been turned over
+	if (values.ncards == 0){
+	//the button should display 'no card' if no cards have been selected yet
+		values.button=1;
+	} else {
+		//the button should display 'turn over' if at least one card has been selected
+		values.button=2;
+	};
+	
+]
+	
+
+/ stimulusframes = [1=gameround, roundinfo, score, button, buttontxt, debuginfo,
+	CR1C1, CR1C2, CR1C3, CR1C4, CR1C5, CR1C6, CR1C7, CR1C8,
+	CR2C1, CR2C2, CR2C3, CR2C4, CR2C5, CR2C6, CR2C7, CR2C8,
+	CR3C1, CR3C2, CR3C3, CR3C4, CR3C5, CR3C6, CR3C7, CR3C8,
+	CR4C1, CR4C2, CR4C3, CR4C4, CR4C5, CR4C6, CR4C7, CR4C8]
+/ isvalidresponse = [contains(values.responsestorage,trial.pickcard.response)==0]
+/ validresponse = (button,
+	CR1C1, CR1C2, CR1C3, CR1C4, CR1C5, CR1C6, CR1C7, CR1C8,
+	CR2C1, CR2C2, CR2C3, CR2C4, CR2C5, CR2C6, CR2C7, CR2C8,
+	CR3C1, CR3C2, CR3C3, CR3C4, CR3C5, CR3C6, CR3C7, CR3C8,
+	CR4C1, CR4C2, CR4C3, CR4C4, CR4C5, CR4C6, CR4C7, CR4C8)
+/ ontrialend = [
+	if (trial.pickcard.response != "button")
+	{
+		values.responsestorage=concat(values.responsestorage,trial.pickcard.response);
+	}
+	
+	list.pickcardresponses.appenditem(trial.pickcard.response);
+	
+	values.cardtype = 4; //4 = checked card
+	if (trial.pickcard.response=="CR1C1"){
+		values.CR1C1=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR1C2"){
+		values.CR1C2=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR1C3"){
+		values.CR1C3=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR1C4"){
+		values.CR1C4=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR1C5"){
+		values.CR1C5=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR1C6"){
+		values.CR1C6=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR1C7"){
+		values.CR1C7=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR1C8"){
+		values.CR1C8=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR2C1"){
+		values.CR2C1=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR2C2"){
+		values.CR2C2=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR2C3"){
+		values.CR2C3=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR2C4"){
+		values.CR2C4=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR2C5"){
+		values.CR2C5=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR2C6"){
+		values.CR2C6=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR2C7"){
+		values.CR2C7=values.cardtype; 
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR2C8"){
+		values.CR2C8=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR3C1"){
+		values.CR3C1=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR3C2"){
+		values.CR3C2=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR3C3"){
+		values.CR3C3=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR3C4"){
+		values.CR3C4=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR3C5"){
+		values.CR3C5=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR3C6"){
+		values.CR3C6=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR3C7"){
+		values.CR3C7=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR3C8"){
+		values.CR3C8=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR4C1"){
+		values.CR4C1=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR4C2"){
+		values.CR4C2=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR4C3"){
+		values.CR4C3=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR4C4"){
+		values.CR4C4=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR4C5"){
+		values.CR4C5=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR4C6"){
+		values.CR4C6=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR4C7"){
+		values.CR4C7=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	} else if (trial.pickcard.response=="CR4C8"){
+		values.CR4C8=values.cardtype;
+		values.ncards+=1;
+		values.nsubcards+=1;
+	};
+]	
+
+/ responsemessage = (button, button_on, 500)
+/ responsemessage = (button, buttontxt, 500)
+/ branch = [
+	if (trial.pickcard.response=="button"){
+		return trial.turncard;
+	} else {
+		return trial.pickcard;
+	};
+]
+</trial>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	list.pickcardresponses stores the responses given (i.e., cards selected) in trial.pickcard
+	for later replay (one-by-one turnover) in trial.turncard
+**************************************************************************************************************
+**************************************************************************************************************
+
+<list pickcardresponses>
+/ selectionmode = sequence
+/ selectionrate = trial
+</list>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	trial.turncard turns the selected cards (-> trial.pickcard) over one by one.
+**************************************************************************************************************
+**************************************************************************************************************
+
+<trial turncard>
+/ ontrialbegin = [
+	if (list.pickcardresponses.nextvalue != "button"){
+		values.ncards_cumu+=1;
+	};
+
+
+	if (values.ncards_cumu <= values.nsafecards){
+		//if there are still safe cards to be turned, the current card is a win card
+		values.cardtype=2;
+	} else {
+		//if all safe cards have been turned, the current card has to be the first loss card
+		values.cardtype=3;
+	};
+	
+	if (list.pickcardresponses.currentvalue=="CR1C1") {
+		values.CR1C1=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR1C2") {
+		values.CR1C2=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR1C3") {
+		values.CR1C3=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR1C4") {
+		values.CR1C4=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR1C5") {
+		values.CR1C5=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR1C6") {
+		values.CR1C6=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR1C7") {
+		values.CR1C7=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR1C8") {
+		values.CR1C8=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR2C1") {
+		values.CR2C1=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR2C2") {
+		values.CR2C2=values.cardtype;
+	
+	} else if (list.pickcardresponses.currentvalue=="CR2C3") {
+		values.CR2C3=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR2C4") {
+		values.CR2C4=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR2C5") {
+		values.CR2C5=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR2C6") {
+		values.CR2C6=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR2C7") {
+		values.CR2C7=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR2C8") {
+		values.CR2C8=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR3C1") {
+		values.CR3C1=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR3C2") {
+		values.CR3C2=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR3C3") {
+		values.CR3C3=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR3C4") {
+		values.CR3C4=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR3C5") {
+		values.CR3C5=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR3C6") {
+		values.CR3C6=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR3C7") {
+		values.CR3C7=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR3C8") {
+		values.CR3C8=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR4C1") {
+		values.CR4C1=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR4C2") {
+		values.CR4C2=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR4C3") {
+		values.CR4C3=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR4C4") {
+		values.CR4C4=values.cardtype;
+		
+	} else if (list.pickcardresponses.currentvalue=="CR4C5") {
+		values.CR4C5=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR4C6") {
+		values.CR4C6=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR4C7") {
+		values.CR4C7=values.cardtype;
+
+	} else if (list.pickcardresponses.currentvalue=="CR4C8") {
+		values.CR4C8=values.cardtype;
+
+	};
+
+	if (values.ncards_cumu <= values.nsafecards){
+		//at this point, there are still safe cards left to turn over
+		values.openlosscards=0;
+	};
+	
+	if (list.pickcardresponses.currentvalue!="button") {
+		if (values.cardtype==2){
+			values.score+=values.gainamount;
+		} else if (values.cardtype==3){
+			//at this point the first loss card has been encountered
+			values.score-=(values.ncards) * values.lossamount;
+			values.openlosscards=1;
+		};
+	};	
+	
+]
+/ stimulusframes = [1=gameround, roundinfo, score, button, buttontxt, debuginfo,
+	CR1C1, CR1C2, CR1C3, CR1C4, CR1C5, CR1C6, CR1C7, CR1C8,
+	CR2C1, CR2C2, CR2C3, CR2C4, CR2C5, CR2C6, CR2C7, CR2C8,
+	CR3C1, CR3C2, CR3C3, CR3C4, CR3C5, CR3C6, CR3C7, CR3C8,
+	CR4C1, CR4C2, CR4C3, CR4C4, CR4C5, CR4C6, CR4C7, CR4C8]
+/ validresponse = (noresponse)
+/ trialduration = 500
+/ branch = [
+	if (values.openlosscards==1){
+		values.ncards=0
+		if(values.losscards==1){
+			values.ncards_cumu=0
+			return trial.turnover 
+		}else{
+			return trial.prepturnover;
+		}
+	}else if (list.pickcardresponses.currentvalue=="button"){
+		//
+		values.ncards=0
+		return trial.pickagain;
+
+	}else{
+		values.ncards=0
+		return trial.turncard;
+	}
+]
+</trial>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	!!! DO NOT MAKE ANY CHANGES TO THIS LIST !!!
+**************************************************************************************************************
+**************************************************************************************************************
+	List 'cardnumber' is used by trial 'prepturnover' in order to walk through the deck of cards
+	in random order. See the comments on trial 'prepturnover' below for details.
+**************************************************************************************************************
+**************************************************************************************************************
+<list cardnumber>
+/ items = (1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,
+	17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32)
+</list>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	List 'lscard' is used to record number of cards flip over in each pick per round.
+**************************************************************************************************************
+**************************************************************************************************************
+<list lscard>
+/ items = ()
+</list>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	List 'lstotalcard' is used to record total number of cards flip over in each round. List 'lstotalcard' 
+	is a list of list 'lscard'
+**************************************************************************************************************
+**************************************************************************************************************
+<list lstotalcard>
+/ items = ()
+</list>
+**************************************************************************************************************
+**************************************************************************************************************
+	Trial 'prepturnover' is a dummy trial. Once a round has ended due to the participant stopping
+	voluntarily or due to opening a loss card (filler trials), trial 'prepturnover' starts running through the whole 
+	deck of 32 cards in random (!) order. It checks whether a given card has already been 
+	turned over (4) by the participant or not (1 = unturned). The first N unturned cards encountered are then 
+	assigned to be loss cards, where N is the number of remaining unturned loss cards in the deck.
+**************************************************************************************************************
+**************************************************************************************************************
+ 
+<trial prepturnover>
+/ ontrialbegin = [
+	if (list.cardnumber.nextvalue==1) {
+		if (values.CR1C1== 4 || values.CR1C1 == 1){
+			values.CR1C1=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==2) {
+		if (values.CR1C2== 4 || values.CR1C2 == 1){
+			values.CR1C2=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==3) {
+		if (values.CR1C3== 4 || values.CR1C3 == 1){
+			values.CR1C3=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue== 4) {
+		if (values.CR1C4== 4 || values.CR1C4 == 1){
+			values.CR1C4=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==5) {
+		if (values.CR1C5== 4 || values.CR1C5 == 1){
+			values.CR1C5=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==6) {
+		if (values.CR1C6== 4 || values.CR1C6 == 1){
+			values.CR1C6=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==7) {
+		if (values.CR1C7== 4 || values.CR1C7 == 1){
+			values.CR1C7=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==8) {
+		if (values.CR1C8== 4 || values.CR1C8 == 1){
+			values.CR1C8=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==9) {
+		if (values.CR2C1== 4 || values.CR2C1 == 1){
+			values.CR2C1=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==10) {
+		if (values.CR2C2== 4 || values.CR2C2 == 1){
+			values.CR2C2=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==11) {
+		if (values.CR2C3== 4 || values.CR2C3 == 1){
+			values.CR2C3=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==12) {
+		if (values.CR2C4== 4 || values.CR2C4 == 1){
+			values.CR2C4=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==13) {
+		if (values.CR2C5== 4 || values.CR2C5 == 1){
+			values.CR2C5=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==14) {
+		if (values.CR2C6== 4 || values.CR2C6 == 1){
+			values.CR2C6=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==15) {
+		if (values.CR2C7== 4 || values.CR2C7 == 1){
+			values.CR2C7=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==16) {
+		if (values.CR2C8== 4 || values.CR2C8 == 1){
+			values.CR2C8=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==17) {
+		if (values.CR3C1== 4 || values.CR3C1 == 1){
+			values.CR3C1=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==18) {
+		if (values.CR3C2== 4 || values.CR3C2 == 1){
+			values.CR3C2=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==19) {
+		if (values.CR3C3== 4 || values.CR3C3 == 1){
+			values.CR3C3=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==20) {
+		if (values.CR3C4== 4 || values.CR3C4 == 1){
+			values.CR3C4=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==21) {
+		if (values.CR3C5== 4 || values.CR3C5 == 1){
+			values.CR3C5=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==22) {
+		if (values.CR3C6== 4 || values.CR3C6 == 1){
+			values.CR3C6=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==23) {
+		if (values.CR3C7== 4 || values.CR3C7 == 1){
+			values.CR3C7=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==24) {
+		if (values.CR3C8== 4 || values.CR3C8 == 1){
+			values.CR3C8=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==25) {
+		if (values.CR4C1== 4 || values.CR4C1 == 1){
+			values.CR4C1=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==26) {
+		if (values.CR4C2== 4 || values.CR4C2 == 1){
+			values.CR4C2=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==27) {
+		if (values.CR4C3== 4 || values.CR4C3 == 1){
+			values.CR4C3=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==28) {
+		if (values.CR4C4== 4 || values.CR4C4 == 1){
+			values.CR4C4=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==29) {
+		if (values.CR4C5== 4 || values.CR4C5 == 1){
+			values.CR4C5=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==30) {
+		if (values.CR4C6== 4 || values.CR4C6 == 1){
+			values.CR4C6=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==31) {
+		if (values.CR4C7== 4 || values.CR4C7 == 1){
+			values.CR4C7=3;
+			values.openlosscards+=1;
+		};
+	} else if (list.cardnumber.currentvalue==32) {
+		if (values.CR4C8== 4 || values.CR4C8 == 1){
+			values.CR4C8=3;
+			values.openlosscards+=1;
+		};
+	};
+]
+/ validresponse = (noresponse)
+/ trialduration = 0
+/ recorddata = false
+/ branch = [
+	if (values.openlosscards>=values.losscards){
+		return trial.turnover;
+	} else {
+		return trial.prepturnover;
+	};
+]
+</trial>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	Trial 'turnover' is a utility trial. All remaining cards are turned over and displayed after loss 
+	card positions have been determined by trial 'prepturnover'. The trial also handles scoring of 
+	gains and losses.
+**************************************************************************************************************
+**************************************************************************************************************
+
+<trial turnover>
+/ ontrialbegin = [
+	values.button=3; 
+	values.button2=2;
+	values.totalscore=values.totalscore+values.score;
+
+	if (values.CR1C1== 1 || values.CR1C1 == 4) {
+		values.CR1C1=2;
+	};
+	if (values.CR1C2== 1 || values.CR1C2 == 4) {
+		values.CR1C2=2;
+	};
+	if (values.CR1C3== 1 || values.CR1C3 == 4) {
+		values.CR1C3=2;
+	};
+	if (values.CR1C4== 1 || values.CR1C4 == 4) {
+		values.CR1C4=2;
+	};
+	if (values.CR1C5== 1 || values.CR1C5 == 4) {
+		values.CR1C5=2;
+	};
+	if (values.CR1C6== 1 || values.CR1C6 == 4) {
+		values.CR1C6=2;
+	};
+	if (values.CR1C7== 1 || values.CR1C7 == 4) {
+		values.CR1C7=2;
+	};
+	if (values.CR1C8== 1 || values.CR1C8 == 4) {
+		values.CR1C8=2;
+	};
+	if (values.CR2C1== 1 || values.CR2C1 == 4) {
+		values.CR2C1=2;
+	};
+	if (values.CR2C2== 1 || values.CR2C2 == 4) {
+		values.CR2C2=2;
+	};
+	if (values.CR2C3== 1 || values.CR2C3 == 4) {
+		values.CR2C3=2;
+	};
+	if (values.CR2C4== 1 || values.CR2C4 == 4) {
+		values.CR2C4=2;
+	};
+	if (values.CR2C5== 1 || values.CR2C5 == 4) {
+		values.CR2C5=2;
+	};
+	if (values.CR2C6== 1 || values.CR2C6 == 4) {
+		values.CR2C6=2;
+	};
+	if (values.CR2C7== 1 || values.CR2C7 == 4) {
+		values.CR2C7=2;
+	};
+	if (values.CR2C8== 1 || values.CR2C8 == 4) {
+		values.CR2C8=2;
+	};
+	if (values.CR3C1== 1 || values.CR3C1 == 4) {
+		values.CR3C1=2;
+	};
+	if (values.CR3C2== 1 || values.CR3C2 == 4) {
+		values.CR3C2=2;
+	};
+	if (values.CR3C3== 1 || values.CR3C3 == 4) {
+		values.CR3C3=2;
+	};
+	if (values.CR3C4== 1 || values.CR3C4 == 4) {
+		values.CR3C4=2;
+	};
+	if (values.CR3C5== 1 || values.CR3C5 == 4) {
+		values.CR3C5=2;
+	};
+	if (values.CR3C6== 1 || values.CR3C6 == 4) {
+		values.CR3C6=2;
+	};
+	if (values.CR3C7== 1 || values.CR3C7 == 4) {
+		values.CR3C7=2;
+	};
+	if (values.CR3C8== 1 || values.CR3C8 == 4) {
+		values.CR3C8=2;
+	};
+	if (values.CR4C1== 1 || values.CR4C1 == 4) {
+		values.CR4C1=2;
+	};
+	if (values.CR4C2== 1 || values.CR4C2 == 4) {
+		values.CR4C2=2;
+	};
+	if (values.CR4C3== 1 || values.CR4C3 == 4) {
+		values.CR4C3=2;
+	};
+	if (values.CR4C4== 1 || values.CR4C4 == 4) {
+		values.CR4C4=2;
+	};
+	if (values.CR4C5== 1 || values.CR4C5 == 4) {
+		values.CR4C5=2;
+	};
+	if (values.CR4C6== 1 || values.CR4C6 == 4) {
+		values.CR4C6=2;
+	};
+	if (values.CR4C7== 1 || values.CR4C7 == 4) {
+		values.CR4C7=2;
+	};
+	if (values.CR4C8== 1 || values.CR4C8 == 4) {
+		values.CR4C8=2;	
+	};
+]
+/ stimulusframes = [1=gameround, roundinfo, score, button, button2, button2txt, buttontxt, debuginfo,
+	CR1C1, CR1C2, CR1C3, CR1C4, CR1C5, CR1C6, CR1C7, CR1C8,
+	CR2C1, CR2C2, CR2C3, CR2C4, CR2C5, CR2C6, CR2C7, CR2C8,
+	CR3C1, CR3C2, CR3C3, CR3C4, CR3C5, CR3C6, CR3C7, CR3C8,
+	CR4C1, CR4C2, CR4C3, CR4C4, CR4C5, CR4C6, CR4C7, CR4C8]
+/ validresponse = (button)
+/ ontrialend = [
+	if (list.trialtype.unselectedcount==0){
+		values.stopblock=1;
+	};
+]
+/ responsemessage = (button, button_on, 500)
+/ responsemessage = (button, buttontxt, 500)
+/ branch = [
+	values.lstotalcards=concat(values.lstotalcards, "/");
+	values.lstotalcards=concat(values.lstotalcards, values.lscard);
+	return trial.getcondition;
+]
+</trial>
+
+<trial pickagain>
+/ ontrialbegin = [
+	values.button=4; 
+	values.button2=1;
+	if(values.nsubcards!=0){
+		values.lscard=concat(values.lscard, values.nsubcards);
+		values.lscard=concat(values.lscard, ";");
+	}
+	values.nsubcards = 0;
+]
+/ stimulusframes = [1=gameround, roundinfo, score, button, buttontxt, button2, button2txt, debuginfo]
+/ validresponse = (button, button2)
+/ trialduration = 500
+/ responsemessage = (button, button_on, 500)
+/ responsemessage = (button, buttontxt, 500)
+/ responsemessage = (button2, button2_on, 500)
+/ responsemessage = (button2, button2txt, 500)
+/ branch = [if (trial.pickagain.response=="button"){
+		values.button = 1;
+		return trial.pickcard;
+	} else if(trial.pickagain.response=="button2"){
+		return trial.prepturnover
+	}else {
+		return trial.pickagain;
+	}
+]
+</trial>
+**************************************************************************************************************
+**************************************************************************************************************
+	Block Definitions
+**************************************************************************************************************
+**************************************************************************************************************
+<block CCT>
+/ preinstructions = (instructions01, instructions02)
+/ postinstructions = (end,code)
+/ stop = [values.stopblock==1]
+/ trials = [1=getcondition]
+</block>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	Experiment Definition
+**************************************************************************************************************
+**************************************************************************************************************
+<expt CCT>
+/ blocks = [1=CCT]
+/onexptend = [values.completed = 1]
+</expt>
+
+
+**************************************************************************************************************
+**************************************************************************************************************
+	Screen Layout Elements
+**************************************************************************************************************
+**************************************************************************************************************
+	The top of the screen displays the following information for a given trial: 
+	number of hidden loss cards, amount of gain per gain card, amount of loss, 
+	round number and the participant's score (on a per round basis).
+**************************************************************************************************************
+**************************************************************************************************************
+	Text Elements / Stimuli
+**************************************************************************************************************
+**************************************************************************************************************
+<text gameround>
+/ items = ("Round #<%values.gameround%>") 
+/ size = (25%, 5%)
+/ position = (1.5%, 3%)
+/ halign = left
+/ hjustify = left
+/ vjustify = center
+/ erase = false
+</text>
+
+<text roundinfo>
+/ items = ("Hidden Loss Cards: <%values.losscards%>               Gain Amount: <%values.gainamount%>               Loss Amount: <%values.lossamount%>")
+/ txcolor = black
+/ txbgcolor = white
+/ size = (97%, 5%)
+/ position = (50%, 8%)
+/ halign = center
+/ hjustify = center
+/ vjustify = center
+/ erase = false
+</text>
+
+<text score>
+/ items = ("Score: <%values.score%>")
+/ size = (25%, 5%)
+/ position = (86%, 3%)
+/ hjustify = left
+/ vjustify = center
+/ erase = false
+</text>
+
+<text totalscore>
+/ items = ("Total: <%values.totalscore%>")
+/ size = (25%, 5%)
+/ position = (86%, 92%)
+/ hjustify = left
+/ vjustify = center
+/ erase = false
+</text>
+
+<picture button>
+/ items = ("button.jpg")
+/ size = (20%, 9%)
+/ position = (50%, 89%)
+/ halign = center
+/ erase = false
+</picture>
+
+<picture button2>
+/ items = ("button.jpg")
+/ size = (20%, 9%)
+/ position = (90%, 89%)
+/ halign = center
+/ erase = false
+</picture>
+
+<picture button_on>
+/ items = ("button_on.jpg")
+/ size = (20%, 9%)
+/ position = (50%, 89%)
+/ halign = center
+/ erase = false
+</picture>
+
+<picture button2_on>
+/ items = ("button_on.jpg")
+/ size = (20%, 9%)
+/ position = (90%, 89%)
+/ halign = center
+/ erase = false
+</picture>
+
+
+<text buttontxt>
+/ items = ("No Card", "Turn Over", "Next Round", "Pick Again")
+/ select = values.button
+/ txcolor = black
+/ txbgcolor = transparent
+/ size = (20%, 9%)
+/ position = (50%, 89%)
+/ halign = center
+/ vjustify = center
+/ erase = false
+</text>
+
+<text button2txt>
+/ items = ("Next Round", "")
+/ select = values.button2
+/ txcolor = black
+/ txbgcolor = transparent
+/ size = (20%, 9%)
+/ position = (90%, 89%)
+/ halign = center
+/ vjustify = center
+/ erase = false
+</text>
+
+<shape BlankScreen>
+/ shape = rectangle
+/ color = black
+/ size = (100%, 100%)
+/ erase = false
+/ halign = center
+/ valign = center
+</shape>
+
+<text getready>
+/ items = ("Get ready for round #<%values.gameround%>...~n~nTotal Points: <%values.totalscore%>")
+/ fontstyle = ("Arial", 3.5%, true, false, false, false, 5, 0)
+/ erase = true(black)
+/ size = (65%, 15%)
+/ position = (50%, 50%)
+/ halign = center
+/ valign = center
+/ hjustify = center
+/ vjustify = center
+</text>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	Text 'debuginfo' is used for testing purposes. It provides additional information about the 
+	current round and is invisible to participants. To enable the display, enter 'debug' in the
+	subject id prompt.
+**************************************************************************************************************
+**************************************************************************************************************
+<text debuginfo>
+/ onprepare = [text.debuginfo.skip = !parameters.debugmode;]
+/ items = ("Trialtype: <%values.trialtype%> | Safe Cards: <%values.nsafecards%> | Turned Cards: <%values.ncards%> | Card Type: <%values.cardtype%> | card: <%list.pickcardresponses.currentvalue%>")
+/ txcolor = red
+/ size = (55%, 5%)
+/ position = (50%, 3%)
+/ hjustify = left
+/ halign = center
+/ valign = center
+/ erase = false
+</text>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	Card Pictures
+**************************************************************************************************************
+**************************************************************************************************************
+	32 cards, displayed in 4 rows of 8 cards
+**************************************************************************************************************
+**************************************************************************************************************
+	Whether a given card is left face down and should display a gain or loss card is determined
+	at runtime. The values 'CR1C1' to 'CR4C8' are used to switch between these three possibilities,
+	where '1' indicates a card lying face down, '2' indicates a gain card and '3' indicates a loss card.
+	4 = indicates a checked card
+**************************************************************************************************************
+**************************************************************************************************************
+	Note: All cards are positioned and sized *relative* to picture 'CR1C1'. If you want to resize or 
+	move the whole deck of cards around, just change the '/ size' and/or '/ position' setting in 
+	picture 'CR1C1'. All other cards / pictures will be resized and repositioned automatically.
+**************************************************************************************************************
+**************************************************************************************************************
+
+<picture CR1C1>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR1C1
+/ size = (9.5%, 20%)
+/ position = (1.5%, 16%)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR1C2>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR1C2
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C1.hposition + 12.5%, picture.CR1C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR1C3>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR1C3
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C2.hposition + 12.5%, picture.CR1C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR1C4>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR1C4
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C3.hposition + 12.5%, picture.CR1C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR1C5>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR1C5
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C4.hposition + 12.5%, picture.CR1C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR1C6>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR1C6
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C5.hposition + 12.5%, picture.CR1C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR1C7>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR1C7
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C6.hposition + 12.5%, picture.CR1C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR1C8>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR1C8
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C7.hposition + 12.5%, picture.CR1C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR2C1>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR2C1
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C1.hposition, picture.CR1C1.vposition + 18%)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR2C2>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR2C2
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C1.hposition + 12.5%, picture.CR2C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR2C3>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR2C3
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C2.hposition + 12.5%, picture.CR2C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR2C4>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR2C4
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C3.hposition + 12.5%, picture.CR2C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR2C5>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR2C5
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C4.hposition + 12.5%, picture.CR2C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR2C6>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR2C6
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C5.hposition + 12.5%, picture.CR2C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR2C7>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR2C7
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C6.hposition + 12.5%, picture.CR2C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR2C8>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR2C8
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C7.hposition + 12.5%, picture.CR2C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR3C1>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR3C1
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C1.hposition, picture.CR2C1.vposition + 18%)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR3C2>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR3C2
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C1.hposition + 12.5%, picture.CR3C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR3C3>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR3C3
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C2.hposition + 12.5%, picture.CR3C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR3C4>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR3C4
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C3.hposition + 12.5%, picture.CR3C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR3C5>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR3C5
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C4.hposition + 12.5%, picture.CR3C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR3C6>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR3C6
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C5.hposition + 12.5%, picture.CR3C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR3C7>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR3C7
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C6.hposition + 12.5%, picture.CR3C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR3C8>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR3C8
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C7.hposition + 12.5%, picture.CR3C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR4C1>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR4C1
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C1.hposition, picture.CR3C1.vposition + 18%)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR4C2>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR4C2
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C1.hposition + 12.5%, picture.CR4C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR4C3>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR4C3
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C2.hposition + 12.5%, picture.CR4C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR4C4>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR4C4
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C3.hposition + 12.5%, picture.CR4C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR4C5>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR4C5
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C4.hposition + 12.5%, picture.CR4C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR4C6>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR4C6
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C5.hposition + 12.5%, picture.CR4C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR4C7>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR4C7
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C6.hposition + 12.5%, picture.CR4C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+<picture CR4C8>
+/ items = ("covercard.jpg", "gaincard.jpg", "losscard.jpg", "checkedcard.jpg")
+/ select = values.CR4C8
+/ size = (picture.CR1C1.width, picture.CR1C1.height)
+/ position = (picture.CR1C7.hposition + 12.5%, picture.CR4C1.vposition)
+/ halign = left
+/ valign = top
+/ erase = false
+</picture>
+
+**************************************************************************************************************
+**************************************************************************************************************
+	End Of File
+**************************************************************************************************************
+**************************************************************************************************************

@@ -1,0 +1,12 @@
+build	computer.platform	date	time	subject	group	session	blockcode	blocknum	trialcode	trialnum	response	latency	gameround	trialtype	losscards	gainamount	lossamount	ncards	nsubcards	nsafecards	score	totalscore
+6.6.1	mac	2022-11-09	09:25:26	1	1	1	CCT	1	pickcard	2	CR3C6	50	1	1	3	10	250	1	1	29	0	0
+6.6.1	mac	2022-11-09	09:25:26	1	1	1	CCT	1	pickcard	3	CR3C7	48	1	1	3	10	250	2	2	29	0	0
+6.6.1	mac	2022-11-09	09:25:26	1	1	1	CCT	1	pickcard	4	CR1C8	24	1	1	3	10	250	3	3	29	0	0
+6.6.1	mac	2022-11-09	09:25:26	1	1	1	CCT	1	pickcard	5	CR4C7	38	1	1	3	10	250	4	4	29	0	0
+6.6.1	mac	2022-11-09	09:25:26	1	1	1	CCT	1	pickcard	6	CR2C1	53	1	1	3	10	250	5	5	29	0	0
+6.6.1	mac	2022-11-09	09:25:26	1	1	1	CCT	1	pickcard	7	CR2C7	39	1	1	3	10	250	6	6	29	0	0
+6.6.1	mac	2022-11-09	09:25:26	1	1	1	CCT	1	pickcard	8	button	34	1	1	3	10	250	6	6	29	0	0
+6.6.1	mac	2022-11-09	09:25:26	1	1	1	CCT	1	turncard	9	0	500	1	1	3	10	250	1	6	29	10	0
+6.6.1	mac	2022-11-09	09:25:26	1	1	1	CCT	1	turncard	10	0	500	1	1	3	10	250	2	6	29	20	0
+6.6.1	mac	2022-11-09	09:25:26	1	1	1	CCT	1	turncard	11	0	500	1	1	3	10	250	3	6	29	30	0
+6.6.1	mac	2022-11-09	09:25:26	1	1	1	CCT	1	turncard	12	Ctrl+'Q'	409	1	1	3	10	250	4	6	29	40	0
